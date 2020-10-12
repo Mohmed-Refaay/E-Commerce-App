@@ -3,17 +3,14 @@
 
     <body>
         <%- include('../includes/navigation.ejs') %>
-        <main>
-            <div class="centered">
-                <h1><%= product.title  %> </h1>
-                <div>
-                    <img src="<%= product.imageUrl %>">
-                </div>
-                <h2>$ <%=  product.price %> </h2>
-                <p><%= product.description  %> </p>
-                <form action="/chart" method="POST">
-                <button type="submit" class="btn">Add to Chart</button>
-                </form>
+        <main class="centered">
+            <h1><%= product.title %></h1>
+            <hr>
+            <div>
+                <img src="<%= product.imageUrl %>" alt="<%= product.title %>">
             </div>
+            <h2><%= product.price %></h2>
+            <p><%= product.description %></p>
+            <%- include('../includes/add-to-cart.ejs') %>
         </main>
         <%- include('../includes/end.ejs') %>
