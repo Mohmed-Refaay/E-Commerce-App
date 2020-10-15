@@ -25,15 +25,17 @@ exports.postAddProduct = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-// exports.getProducts = (req, res, next) => {
-//   Product.fetchAll((products) => {
-//     res.render("admin/products", {
-//       prods: products,
-//       pageTitle: "Admin Products",
-//       path: "/admin/products",
-//     });
-//   });
-// };
+exports.getProducts = (req, res, next) => {
+  Product.fetchAll()
+    .then((products) => {
+      res.render("admin/products", {
+        prods: products,
+        pageTitle: "Admin Products",
+        path: "/admin/products",
+      });
+    })
+    .then((err) => console.log(err));
+};
 
 // exports.getEditProduct = (req, res, next) => {
 //   const edit = req.query.edit;

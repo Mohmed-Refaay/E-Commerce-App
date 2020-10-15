@@ -20,7 +20,7 @@ const getDB = () => {
         return _db
     }
 
-    throw "no data stored"
+    console.log("no data stored")
 }
 
 exports.MongoClient = MongoConnect;
