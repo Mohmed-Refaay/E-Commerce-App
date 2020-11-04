@@ -1,12 +1,23 @@
-const e = require("express");
+const nodemailer = require("nodemailer");
+const sendGrid = require("nodemailer-sendgrid-transport");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+
+const transportor = nodemailer.createTransport(
+  sendGrid({
+    auth: {
+      api_key:
+        "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",
+    },
+  })
+);
+
 exports.getLogin = (req, res, next) => {
   res.render("auth/login", {
     pageTitle: "Login",
     path: "/login",
     isLoggedIn: req.session.isLoggedIn,
-    errorMessage: req.flash("error")
+    errorMessage: req.flash("error"),
   });
 };
 
@@ -16,7 +27,7 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: email })
     .then((user) => {
       if (!user) {
-        req.flash("error", "Invalid Email or Password.")
+        req.flash("error", "Invalid Email or Password.");
         return res.redirect("/login");
       }
 
@@ -24,7 +35,7 @@ exports.postLogin = (req, res, next) => {
         .compare(password, user.password)
         .then((match) => {
           if (!match) {
-            req.flash("error", "Invalid Email or Password.")
+            req.flash("error", "Invalid Email or Password.");
             return res.redirect("/login");
           }
 
@@ -52,7 +63,7 @@ exports.getSignUp = (req, res, next) => {
     isLoggedIn: req.session.isLoggedIn,
     path: "/signup",
     pageTitle: "Sign Up",
-    errorMessage: req.flash('error')
+    errorMessage: req.flash("error"),
   });
 };
 
@@ -62,7 +73,7 @@ exports.postSignUp = (req, res, next) => {
   User.findOne({ email: email })
     .then((userDoc) => {
       if (userDoc) {
-        req.flash("error", "This Account is Already exist.")
+        req.flash("error", "This Account is Already exist.");
         return res.redirect("/signup");
       }
       bcrypt

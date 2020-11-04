@@ -60,7 +60,7 @@ app.use(authRoutes);
 app.use(errorController.get404);
 
 mongoose
-  .connect("mongodb+srv://refaay:mado4ever@cluster0.imc7b.mongodb.net/shop")
+  .connect("mongodb+srv://refaay:*****@cluster0.imc7b.mongodb.net/shop")
   .then((results) => {
     app.listen(3000);
   })
